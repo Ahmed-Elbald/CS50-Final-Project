@@ -1,0 +1,18 @@
+{%extends "layout.html"%}
+
+{%block title%}Sign In{%endblock%}
+
+{%block main%}
+<main role="main" class="signin-main">
+  <div class="container">
+    <h2 class="sec-header">sign in !</h2>
+    <div class="main-details">
+      <form action="/signin" method="post">
+        <input autocomplete="off" type="text" name="username-email" required placeholder="username or email *">
+        <input autocomplete="off" type="password" minlength="8" name="password" required placeholder="password *">
+        <input autocomplete="off" type="submit" value="sign in">
+      </form>
+    </div>
+  </div>
+</main>
+{%endblock%}

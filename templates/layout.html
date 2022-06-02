@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+  <!-- google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;500;700;800&family=Tangerine:wght@700&display=swap" rel="stylesheet">
+  <!-- css -->
+  <link rel="stylesheet" href="static/css/all.min.css">
+  <link rel="stylesheet" href="static/css/components.css">
+  <link rel="stylesheet" href="static/css/main.css">
+  <!-- js -->
+  {%block script%}{%endblock%}
+  <!-- title -->
+  <title>{%block title%}{%endblock%}</title>
+
+</head>
+<body>
+  <header role="heading">
+    <div class="container">
+      <div class="logo logo-text">
+        write it !
+      </div>
+      <button class="toggle-btn">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <nav class="main-nav">
+          {%if session["user_id"]%}
+          <ul>
+            <li><a href="/home">home</a></li>
+            <li><a href="/diary">your diary</a></li>
+            <li><a href="/notes">notes</a></li>
+          </ul>
+          <ul>
+            <li><a href="/settings">settings</a></li>
+            <li><a href="/logout">log out</a></li>
+          </ul>
+          {%else%}
+          <ul>
+            <li><a href="/">home</a></li>
+          </ul>
+          <ul>
+            <li><a href="/signup">sign up</a></li>
+            <li><a href="/signin">sign in</a></li>
+          </ul>
+          {%endif%}
+        </nav>
+    </div>
+    {% if get_flashed_messages() %}
+                <div class="flash">
+                    {{ get_flashed_messages() | join(" ") }}
+                </div>
+    {% endif %}
+  </header>
+
+  {%block main%}{%endblock%}
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="info">
+        <p>made with <i class="fa-regular fa-heart"></i> by ahmed saad  ||  all rights reserved</p>
+      </div>
+      <div class="social-links">
+        <a href="https://web.facebook.com/abkareenooo" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://github.com/Ahmed-Elbald" target="_blank"><i class="fa-brands fa-github"></i></a>
+      </div>
+      <div class="acknowlegement">
+        thanks for <a href="https://unsplash.com/" target="_blank">upsplash</a> for providing the images
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

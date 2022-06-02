@@ -1,0 +1,80 @@
+{%extends "layout.html"%}
+
+{%block title%}
+Your Notes
+{%endblock%}
+
+{%block script%}
+<script src="../static/js/notes.js"></script>
+{%endblock%}
+
+{%block main%}
+<main class="notes-main">
+  <div class="container">
+    <h2 class="sec-header">your notes</h2>
+    <div class="main-details">
+      <div class="new">
+        <button class="new-note-btn">
+          make a new note
+          <span><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <dialog class="modal new-note">
+          <h3>make a new note</h3>
+          <form action="/notes" method="post" class="modal-form">
+            <input autocomplete="off" type="hidden" name="id" value="12">
+            <input autocomplete="off" type="text" name="new-title" placeholder="title">
+            <textarea name="new-note" placeholder="Note" required></textarea>
+            <input autocomplete="off" type="submit" value="make" name="submit">
+          </form>
+          <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+        </dialog>
+      </div>
+      <div class="latest-notes">
+        {%if user_notes%}
+        <h3>your latest notes</h3>
+        <div class="notes-cont">
+          {%for note in user_notes|reverse%}
+          <div class="note">
+            <div class="title-date">
+              <h3 class="title">{{note["title"]}}</h3>
+              <span class="date">{{note["time"]}} || {{note["date"]}}</span>
+            </div>
+            <p class="note-text">
+              {{note["note"]}}
+            </p>
+            <button class="open-note">open</button>
+            <button class="edit-note">edit</button>
+            <button class="delete-note">delete</button>
+            <button class="close-note"><i class="fa-solid fa-angle-up"></i></button>
+            <dialog class="modal edit-modal">
+              <h3>edit your note</h3>
+              <form action="/notes" method="post" class="modal-form">
+                <input autocomplete="off" type="hidden" name="id" value="{{note['note_id']}}">
+                <input autocomplete="off" type="text" name="edited-title" placeholder="title" value="{{note['title']}}">
+                <textarea name="edited-note" placeholder="Note" required>{{note['note']}}</textarea>
+                <input autocomplete="off" type="submit" value="edit" name="submit">
+              </form>
+              <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </dialog>
+            <dialog class="delete-modal modal">
+              <h3>are you sure you want to delete this note ?</h3>
+              <div class="form-cont">
+                <form action="/notes" method="post">
+                  <input autocomplete="off" type="hidden" name="id" value="{{note['note_id']}}">
+                  <input autocomplete="off" type="submit" value="yes" name="submit">
+                </form>
+                <button class="close-modal">no</button>
+              </div>
+            </dialog>
+          </div>
+          {%endfor%}
+        </div>
+        {%else%}
+        <h3>you have no notes yet</h3>
+        <img src="../static/images/megamenu.png" class="fill-img">
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</main>
+{%endblock%}

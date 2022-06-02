@@ -1,0 +1,88 @@
+{%extends "layout.html"%}
+
+{%block title%}
+Your Diary
+{%endblock%}
+
+{%block script%}
+<script src="../static/js/diary.js"></script>
+{%endblock%}
+
+{%block main%}
+<main class="diary-main">
+  <div class="container">
+    <h2 class="sec-header">your diary</h2>
+    <div class="main-details">
+      <div class="new">
+        <button class="new-diary-btn">
+          {%if not today_diary%}
+          make your diary for today
+          <span><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <dialog class="modal new-diary">
+          <h3>make your diary for today</h3>
+          <form action="/diary" method="post" class="modal-form">
+            <input autocomplete="off" type="hidden" name="id" value="12">
+            <input autocomplete="off" type="text" name="new-title" placeholder="title">
+            <textarea name="new-diary" placeholder="Your diary" required></textarea>
+            <input autocomplete="off" type="submit" value="make" name="submit">
+          </form>
+          <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+        </dialog>
+        {%else%}
+        <p class="new-diary-btn">
+          you've made your diary for today
+        </p>
+        {%endif%}
+      </div>
+      <div class="latest-diary">
+        {%if user_diary%}
+        <h3>your latest diary</h3>
+        <div class="diary-cont">
+          {%for diary in user_diary|reverse%}
+          <div class="diary">
+            <div class="title-date">
+              <h3 class="title">{{diary["title"]}}</h3>
+              <span class="date">{{diary["time"]}} || {{diary["date"]}}</span>
+            </div>
+            <p class="diary-text">
+              {{diary["diary"]}}
+            </p>
+            <button class="open-diary">open</button>
+            <button class="edit-diary">edit</button>
+            <button class="delete-diary">delete</button>
+            <button class="close-diary"><i class="fa-solid fa-angle-up"></i></button>
+            <dialog class="modal edit-modal">
+              <h3>edit your diary</h3>
+              <form action="/diary" method="post" class="modal-form">
+                <input autocomplete="off" type="hidden" name="id" value="{{diary['diary_id']}}">
+                <input autocomplete="off" type="text" name="edited-title" placeholder="title" value="{{diary['title']}}">
+                <textarea name="edited-diary" placeholder="Your Diary" required>{{diary["diary"]}}</textarea>
+                <input autocomplete="off" type="submit" value="edit" name="submit">
+              </form>
+              <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </dialog>
+            <dialog class="delete-modal modal">
+              <h3>are you sure you want to delete this diary ?</h3>
+              <div class="form-cont">
+                <form action="/diary" method="post">
+                  <input autocomplete="off" type="hidden" name="id" value="{{diary['diary_id']}}">
+                  <input autocomplete="off" type="submit" value="yes" name="submit">
+                </form>
+                <button class="close-modal">no</button>
+              </div>
+            </dialog>
+          </div>
+          {%endfor%}
+        </div>
+        {%else%}
+          <div class="container">
+            <h3>you have no diary yet</h3>
+            <img src="../static/images/skills.png" class="fill-img">
+          </div>
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</main>
+{%endblock%}

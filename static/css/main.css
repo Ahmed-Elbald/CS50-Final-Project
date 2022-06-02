@@ -1,0 +1,550 @@
+/* global */
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 0.6em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #2196f3;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #191919;
+}
+
+:root {
+  --main-color: #2196f3;
+  --alt-color: #1787e0;
+  --sec-bg-color: #ececec;
+  --gray-color: rgb(119, 119, 119);
+  --borders: #b9b9b9;
+  --overlay: #ff007b26;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input,
+button {
+  border: none;
+  outline: none;
+}
+
+ul,
+ol {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  text-transform: capitalize;
+  font-family: 'Cairo', sans-serif;
+  line-height: 1.8;
+}
+
+i,
+a,
+button,
+input[type="submit"] {
+  cursor: pointer;
+}
+
+input::placeholder,
+textarea::placeholder {
+  text-transform: capitalize;
+}
+
+/* main layout */
+
+header {
+  position: absolute;
+  width: 100%;
+  background-color: white;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2em;
+  position: relative;
+}
+
+header .container .logo {
+  font-size: 2rem;
+  width: 150px;
+  color: var(--main-color);
+  user-select: none;
+}
+
+header .container nav {
+  position: absolute;
+  right: 100%;
+  top: 100%;
+  width: 100%;
+  background-color: white;
+  padding: .5em;
+  transition-duration: .5s;
+  z-index: 10;
+}
+
+header .container nav ul li {
+  text-align: center;
+  padding: .4em;
+  font-size: .8rem;
+}
+
+header .container nav ul:first-of-type li,
+header .container nav ul:last-of-type li:first-child {
+  border-bottom: 1px solid #eee;
+}
+
+header .container nav ul li a {
+  color: var(--main-color);
+}
+
+header .container button.toggle-btn {
+  background-color: transparent;
+}
+
+header .container button.toggle-btn:hover+nav {
+  right: 0;
+}
+
+@media (min-width: 500px) {
+  header .container nav {
+    position: relative;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
+
+  header .container nav ul {
+    display: flex;
+    gap: .5em;
+  }
+
+  header .container nav ul:last-child {
+    margin-left: auto;
+  }
+
+  header .container button {
+    display: none;
+  }
+
+  header .container nav ul li {
+    border-bottom: none !important;
+    position: relative;
+    font-size: 1rem;
+    transition-duration: .5s;
+  }
+
+  header .container nav ul li:hover {
+    background-color: var(--sec-bg-color);
+  }
+
+  header .container nav ul li::before {
+    content: "";
+    width: 0;
+    height: 3px;
+    background-color: var(--main-color);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transition-duration: .2s;
+  }
+
+  header .container nav ul li:hover::before {
+    width: 100%;
+  }
+
+  header .container nav ul li a {
+    color: black;
+  }
+}
+
+.flash {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  background-color: var(--overlay);
+  padding: .5em;
+  color: rgba(0, 0, 0, 70%);
+  text-align: center;
+}
+
+main {
+  min-height: 100vh;
+}
+
+main:not(.index-main) {
+  background-color: var(--sec-bg-color);
+  padding-top: 150px;
+  padding-bottom: 100px;
+}
+
+footer {
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: .9rem;
+  letter-spacing: 1px;
+}
+
+footer .container {
+  padding: 1.5em;
+}
+
+footer .container :is(i, a) {
+  color: var(--main-color);
+}
+
+footer .container .social-links i {
+  color: white;
+  padding: .5em;
+  transition-duration: .5s;
+}
+
+footer .container .social-links i:hover {
+  color: var(--main-color);
+}
+
+@media (min-width: 800px) {
+  footer .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+/* index */
+
+.index-main {
+  background: url(../images/diary2.jpg) no-repeat;
+  background-size: 100% 100%;
+}
+
+.index-main .intro {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  color: var(--main-color);
+  background-color: white;
+  padding: 1em;
+  transform: translate(0, -20%);
+  -webkit-transform: translate(0, -20%);
+  -moz-transform: translate(0, -20%);
+  -ms-transform: translate(0, -20%);
+  -o-transform: translate(0, -20%);
+}
+
+@media (max-width:800px) {
+  .index-main .intro h1 {
+    font-size: 1rem;
+  }
+}
+
+:is(.diary, .notes) .card {
+  height: 450px;
+  position: relative;
+  box-shadow: 5px 5px 10px 5px var(--borders);
+}
+
+:is(.diary, .notes) .card span.advantage {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1em;
+  color: var(--main-color);
+  background-color: white;
+}
+
+:is(.diary, .notes) .card::before {
+  content: "";
+  height: 100%;
+  width: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--overlay);
+  transition-duration: .3s;
+}
+
+:is(.diary, .notes) .card:hover::before {
+  width: 100%;
+}
+
+.notes {
+  background-color: var(--sec-bg-color);
+}
+
+.notes .card span.advantage::before {
+  content: "";
+  width: 100%;
+  height: 100px;
+  background-color: white;
+  position: absolute;
+  bottom: 99%;
+  right: 0;
+  clip-path: polygon(0 100%, 100% 0, 100% 100%, 0 100%);
+  transition-duration: .3s;
+}
+
+.notes .card:hover span.advantage::before {
+  clip-path: polygon(0 100%, 0 0, 100% 100%, 0 100%);
+}
+
+.about .sec-details p.about-text {
+  text-align: center;
+  line-height: 2;
+  letter-spacing: 1px;
+  color: var(--gray-color);
+}
+
+.about .sec-details p.about-text :is(abbr,a) {
+  text-decoration: none;
+  color: var(--alt-color);
+}
+
+/* sign up  */
+
+:is(.signup-main, .signin-main) .main-details form {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* notes and diary */
+
+:is(.notes-main, .diary-main) .main-details .new {
+  background-color: white;
+  padding: 1em;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  margin-bottom: 2em;
+}
+
+:is(.notes-main, .diary-main) .main-details .new button:not(.close-modal) {
+  display: block;
+  margin: 0 auto;
+  width: max-content;
+  padding: .5em;
+  background-color: transparent;
+  text-transform: capitalize;
+  color: var(--main-color);
+}
+
+:is(.notes-main, .diary-main) .main-details .new button span {
+  padding: .5em;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  background-color: var(--main-color);
+  margin-left: 1em;
+}
+
+:is(.notes-main, .diary-main) .main-details .new button i {
+  color: white;
+}
+
+:is(.latest-notes, .latest-diary) :is(.notes-cont, .diary-cont) {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+:is(.latest-notes, .latest-diary) :is(.notes-cont, .diary-cont) :is(.note, .diary) {
+  background-color: white;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  padding: .5em;
+  position: relative;
+}
+
+:is(.latest-notes, .latest-diary) :is(.notes-cont, .diary-cont) :is(.note, .diary) .title-date {
+  display: flex;
+  justify-content: space-between;
+}
+
+:is(.notes-main, .diary-main) .main-details h3.title {
+  margin-bottom: 0;
+}
+
+.main-details :is(.latest-notes, .latest-diary) .title-date span:last-child {
+  margin-left: auto;
+  font-size: .9rem;
+  color: var(--gray-color);
+}
+
+:is(.latest-notes, .latest-diary) :is(.note, .diary) p {
+  height: fit-content;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: .5em 0;
+  transition-duration: .3s;
+  color: var(--gray-color);
+}
+
+:is(.notes-main, .diary-main) .main-details button:not(.close-modal) {
+  padding: .5em;
+  background-color: var(--main-color);
+  color: white;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  margin-right: .5em;
+}
+
+:is(.latest-notes, .latest-diary) :is(.note, .diary) :is(.close-note, .close-diary) {
+  display: none;
+  position: absolute;
+  right: .5em;
+  bottom: .5em;
+  border-radius: 50%;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  -ms-border-radius: 50% !important;
+  -o-border-radius: 50% !important;
+}
+
+:is(.note, .diary) .delete-modal .form-cont {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.delete-modal .form-cont :is(input[type="submit"], button) {
+  position: static;
+  padding: .5em 1em;
+  background-color: var(--main-color);
+  color: white;
+  text-transform: capitalize;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+/* settings */
+
+:is(.settings-main, .about-you) button[class*="edit"] {
+  position: absolute;
+  background-color: transparent;
+  color: var(--main-color);
+  left: .7em;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  font-size: .8rem
+}
+
+
+.about-you .bio {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto 2em;
+  padding: .5em 2em;
+  border-radius: 10px;
+  background-color: black;
+  text-align: center;
+  color: var(--main-color);
+  margin-bottom: 1em;
+  opacity: .9;
+  transition-duration: .4s;
+}
+
+.about-you .bio:hover {
+  opacity: 1;
+}
+
+section.delete-account {
+  background-color: var(--sec-bg-color);
+}
+
+section.delete-account button.delete-account {
+  background-color: var(--overlay);
+  padding: .5em;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  color: white;
+  margin-top: 1em;
+  transition-duration: .3s;
+}
+
+section.delete-account button.delete-account:hover {
+  background-color: rgba(255, 0, 0, 0.744);
+}
+
+.sidebar {
+  padding: 3em 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  background-color: black;
+  position: fixed;
+  top: 200px;
+  left: 0;
+  border-radius: 0 5px 5px 0;
+}
+
+.sidebar li a {
+  color: var(--main-color);
+  transition-duration: .3s;
+  opacity: .6;
+}
+
+.sidebar li a:hover {
+  opacity: 1;
+}
+
+@media (max-width: 880px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+:is(.delete-account-modal, .edit-settings-modal, .edit-bio-modal) {
+  padding-top: 3em;
+}

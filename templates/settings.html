@@ -1,0 +1,225 @@
+{%extends "layout.html"%}
+
+{%block title%}
+Settings
+{%endblock%}
+
+{%block script%}
+<script src="../static/js/settings.js"></script>
+{%endblock%}
+
+{%block main%}
+<ul class="sidebar">
+  <li><a href="#profile">your profile</a></li>
+  <li><a href="#info">personal information</a></li>
+  <li><a href="#delete">delete account</a></li>
+</ul>
+<main class="settings-main" id="profile">
+  <img src="../static/images/dots.png" class="dots dots-right">
+  <div class="container">
+    <h2 class="sec-header">your profile</h2>
+    <div class="main-details">
+      <table class="info-table">
+        <tr>
+          <th>
+            <button class="edit-name open-modal"><i class="fa-solid fa-pen-to-square"></i></button>
+            name
+            <dialog class="modal edit-settings-modal">
+              <form action="/settings" method="post" class="modal-form">
+                <input autocomplete="off" type="hidden" name="type" value="name">
+                <input autocomplete="off" type="password" minlength="8" name="password" placeholder="password" required>
+                <input autocomplete="off" type="text" name="firstname" placeholder="first name" required>
+                <input autocomplete="off" type="text" name="lastname" placeholder="last name" required>
+                <input autocomplete="off" type="submit" name="submit" value="edit">
+              </form>
+              <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </dialog>
+          </th>
+          <td>{{user_data["firstname"]}} {{user_data["lastname"]}}</td>
+        </tr>
+        <tr>
+          <th>
+            <button class="edit-username open-modal"><i class="fa-solid fa-pen-to-square"></i></button>
+            username
+            <dialog class="modal edit-settings-modal">
+              <form action="/settings" method="post" class="modal-form">
+                <input autocomplete="off" type="hidden" name="type" value="username">
+                <input autocomplete="off" type="password" minlength="8" name="password" placeholder="password" required>
+                <input autocomplete="off" type="text" name="username" placeholder="new username" required>
+                <input autocomplete="off" type="submit" name="submit" value="edit">
+              </form>
+              <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </dialog>
+          </th>
+          <td>{{user_data["username"]}}</td>
+        </tr>
+        <tr>
+          <th>
+            <button class="edit-email open-modal"><i class="fa-solid fa-pen-to-square"></i></button>
+            email
+            <dialog class="modal edit-settings-modal">
+              <form action="/settings" method="post" class="modal-form">
+                <input autocomplete="off" type="hidden" name="type" value="email">
+                <input autocomplete="off" type="password" minlength="8" name="password" placeholder="password" required>
+                <input autocomplete="off" type="email" name="email" placeholder="new email" required>
+                <input autocomplete="off" type="submit" name="submit" value="edit">
+              </form>
+              <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </dialog>
+          </th>
+          <td>{{user_data["email"]}}</td>
+        </tr>
+        <tr>
+          <th>
+            <button class="edit-phone open-modal"><i class="fa-solid fa-pen-to-square"></i></button>
+            phone
+            <dialog class="modal edit-settings-modal">
+              <form action="/settings" method="post" class="modal-form">
+                <input autocomplete="off" type="hidden" name="type" value="phone">
+                <input autocomplete="off" type="password" minlength="8" name="password" placeholder="password" required>
+                <input autocomplete="off" type="text" name="phone" placeholder="new phone" required>
+                <input autocomplete="off" type="submit" name="submit" value="edit">
+              </form>
+              <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </dialog>
+          </th>
+          <td>{{user_data["phone"]}}</td>
+        </tr>
+        <tr>
+          <th>
+            <button class="edit-phone open-modal"><i class="fa-solid fa-pen-to-square"></i></button>
+            password
+            <dialog class="modal edit-settings-modal">
+              <form action="/settings" method="post" class="modal-form">
+                <input autocomplete="off" type="hidden" name="type" value="password">
+                <input autocomplete="off" type="password" minlength="8" name="password" placeholder="old password" required>
+                <input autocomplete="off" type="password" minlength="8" name="new-password" placeholder="new password" required>
+                <input autocomplete="off" type="password" minlength="8" name="new-password-conf" placeholder="confirm new password" required>
+                <input autocomplete="off" type="submit" name="submit" value="edit">
+              </form>
+              <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </dialog>
+          </th>
+          <td>**********</td>
+        </tr>
+        <tr>
+          <th>first shot</th>
+          <td>{{user_data["time"]}}</td>
+        </tr>
+      </table>
+    </div>
+    <img src="../static/images/landing-image.png" class="fill-img">
+  </div>
+</main>
+<section class="about-you" id="info">
+  <div class="container">
+    <h2 class="sec-header">personal info</h2>
+    <div class="sec-details">
+      <h3>bio</h3>
+      <div class="bio">
+        <button class="open-modal edit-bio"><i class="fa-solid fa-pen-to-square"></i></button>
+        {%if not user_bio["bio"]%}
+        was not set
+        {%else%}
+        {{user_bio["bio"]}}
+        {%endif%}
+        <dialog class="modal edit-bio-modal">
+          <form action="/settings" method="post" class="modal-form">
+            <input autocomplete="off" type="hidden" name="type" value="bio">
+            <input autocomplete="off" type="password" minlength="8" name="password" placeholder="password" required>
+            <textarea name="bio" placeholder="tell us about you" required>{{user_data["bio"]}}</textarea>
+            <input autocomplete="off" type="submit" name="submit" value="edit">
+          </form>
+          <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+        </dialog>
+      </div>
+      <table class="info-table">
+        <tr>
+          <th>
+            <button class="edit-country open-modal"><i class="fa-solid fa-pen-to-square"></i></button>
+            country
+            <dialog class="modal edit-settings-modal">
+              <form action="/settings" method="post" class="modal-form">
+                <input autocomplete="off" type="hidden" name="type" value="country">
+                <input autocomplete="off" type="password" minlength="8" name="password" placeholder="password" required>
+                <input autocomplete="off" type="text" name="country" placeholder="new country" required>
+                <input autocomplete="off" type="submit" name="submit" value="edit">
+              </form>
+              <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </dialog>
+          </th>
+          <td>{{user_data["country"]}}</td>
+        </tr>
+        <tr>
+          <th>
+            <button class="edit-city open-modal"><i class="fa-solid fa-pen-to-square"></i></button>
+            city
+            <dialog class="modal edit-settings-modal">
+              <form action="/settings" method="post" class="modal-form">
+                <input autocomplete="off" type="hidden" name="type" value="city">
+                <input autocomplete="off" type="password" minlength="8" name="password" placeholder="password" required>
+                <input autocomplete="off" type="text" name="city" placeholder="new city" required>
+                <input autocomplete="off" type="submit" name="submit" value="edit">
+              </form>
+              <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </dialog>
+          </th>
+          <td>{{user_data["city"]}}</td>
+        </tr>
+        <tr>
+          <th>
+            <button class="edit-gender open-modal"><i class="fa-solid fa-pen-to-square"></i></button>
+            gender
+            <dialog class="modal edit-settings-modal">
+              <form action="/settings" method="post" class="modal-form">
+                <input autocomplete="off" type="hidden" name="type" value="gender">
+                <input autocomplete="off" type="password" minlength="8" name="password" placeholder="password" required>
+                <input autocomplete="off" type="text" name="gender" placeholder="new gender" required>
+                <input autocomplete="off" type="submit" name="submit" value="edit">
+              </form>
+              <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </dialog>
+          </th>
+          <td>{{user_data["gender"]}}</td>
+        </tr>
+        <tr>
+          <th>
+            <button class="edit-status open-modal"><i class="fa-solid fa-pen-to-square"></i></button>
+            marital status
+            <dialog class="modal edit-settings-modal">
+              <form action="/settings" method="post" class="modal-form">
+                <input autocomplete="off" type="hidden" name="type" value="status">
+                <input autocomplete="off" type="password" minlength="8" name="password" placeholder="password" required>
+                <input autocomplete="off" type="text" name="status" placeholder="new marital status" required list="gender">
+                <input autocomplete="off" type="submit" name="submit" value="edit">
+                <datalist id="gender">
+                  <option value="male">
+                  <option value="female">
+                  <option value="other">
+                </datalist>
+              </form>
+              <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </dialog>
+          </th>
+          <td>{{user_data["marital-status"]}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>
+<section class="delete-account" id="delete">
+  <div class="container">
+    <h2 class="sec-header">delete account</h2>
+    <h3 class="delete-header">Once you delete your account, there is no going back. Please be certain.</h3>
+    <button class="delete-account open-modal">delete my account</button>
+    <dialog class="modal delete-account-modal">
+      <form action="/settings" method="post" class="modal-form">
+        <input autocomplete="off" type="hidden" name="type" value="delete">
+        <input autocomplete="off" type="password" minlength="8" name="password" placeholder="password" required>
+        <input autocomplete="off" type="submit" name="submit" value="delete">
+      </form>
+      <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+    </dialog>
+  </div>
+</section>
+{%endblock%}

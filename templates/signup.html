@@ -1,0 +1,31 @@
+{%extends "layout.html"%}
+
+{%block title%}Sign Up{%endblock%}
+
+{%block main%}
+<main role="main" class="signup-main">
+  <div class="container">
+    <h2 class="sec-header">sign up !</h2>
+    <div class="main-details">
+      <form action="/signup" method="post">
+        <input autocomplete="off" type="text" name="first-name" required placeholder="first name *">
+        <input autocomplete="off" type="text" name="last-name" required placeholder="last name *">
+        <input autocomplete="off" type="text" name="username" required placeholder="username *">
+        <input autocomplete="off" type="email" name="email" required placeholder="email *">
+        <input autocomplete="off" type="text" name="phone" placeholder="phone">
+        <input autocomplete="off" type="password" minlength="8" name="password" required placeholder="password *">
+        <input autocomplete="off" type="password" minlength="8" name="password-conf" required placeholder="confirm password *">
+        <input autocomplete="off" type="text" name="country" placeholder="country *" required>
+        <input autocomplete="off" type="text" name="city" placeholder="city">
+        <input autocomplete="off" type="text" name="gender" placeholder="gender" list="gender">
+        <input autocomplete="off" type="submit" value="sign up">
+        <datalist id="gender">
+          <option value="male">
+          <option value="female">
+          <option value="other">
+        </datalist>
+      </form>
+    </div>
+  </div>
+</main>
+{%endblock%}

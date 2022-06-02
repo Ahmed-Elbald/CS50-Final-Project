@@ -1,0 +1,34 @@
+{%extends "layout.html"%}
+
+{%block title%}
+Home
+{%endblock%}
+
+{%block main%}
+<main class="home-main">
+  <img src="../static/images/dots.png" class="dots dots-right">
+  <img src="../static/images/dots.png" class="dots dots-left">
+  <div class="container">
+    <h2 class="sec-header">home</h2>
+    <table class="home-table">
+      <tr>
+        <th>notes</th>
+        <td>{{arr[0]}}</td>
+      </tr>
+      <tr>
+        <th>notes this month</th>
+        <td>{{arr[1]}}</td>
+      </tr>
+      <tr>
+        <th>diary</th>
+        <td>{{arr[2]}}</td>
+      </tr>
+      <tr>
+        <th>diary written this month</th>
+        <td>{{arr[3]}}</td>
+      </tr>
+    </table>
+    <img src="../static/images/landing-image.png" class="fill-img">
+  </div>
+</main>
+{%endblock%}

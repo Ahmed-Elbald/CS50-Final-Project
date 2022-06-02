@@ -1,0 +1,80 @@
+{%extends "layout.html"%}
+
+  {%block title%}Write it{%endblock%}
+
+{%block main%}
+<main role="main" class="index-main">
+  <div class="container">
+    <div class="intro">
+      <h1>
+        welcome to <span class="logo-text">write it !</span> <br>
+        here, you can write your notes and diary with ease. <br>
+        enjoy your tour.
+      </h1>
+    </div>
+  </div>
+</main>
+<section class="diary">
+  <div class="container">
+    <h2 class="sec-header">writing diary</h2>
+    <div class="sec-details grid-fit">
+      <div class="card">
+        <img src="../static/images/diary5.jpg" alt="diary card">
+        <span class="advantage">keep your thoughts safe</span>
+      </div>
+      <div class="card">
+        <img src="../static/images/diary.jpg" alt="diary card">
+        <span class="advantage">write your diary with ease</span>
+      </div>
+      <div class="card">
+        <img src="../static/images/diary3.jpg" alt="diary card">
+        <span class="advantage">simple layout for you</span>
+      </div>
+      <div class="card">
+        <img src="../static/images/diary4.jpg" alt="diary card">
+        <span class="advantage">made for everbody for free</span>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="notes">
+  <div class="container">
+    <h2 class="sec-header">making notes</h2>
+    <div class="sec-details grid-fit">
+      <div class="card">
+        <img src="../static/images/notes1.jpg" alt="card image">
+        <span class="advantage">make your notes</span>
+      </div>
+      <div class="card">
+        <img src="../static/images/notes2.jpg" alt="card image">
+        <span class="advantage">write your tasks</span>
+      </div>
+      <div class="card">
+        <img src="../static/images/notes4.jpg" alt="card image">
+        <span class="advantage">no worry about organizing</span>
+      </div>
+      <div class="card">
+        <img src="../static/images/notes3.jpg" alt="card image">
+        <span class="advantage">let it all on us</span>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="about">
+  <div class="container">
+    <h2 class="sec-header">about</h2>
+    <div class="sec-details">
+      <p class="about-text">
+        i'm ahmed saad from egypt and this is one of my projects <br>
+        this webapp was made by me as a final project for
+        <abbr title="Harvard University's introduction to the intellectual enterprises of computer science and the art of programming.">
+          <span class="uppercase">cs50</span>.
+        </abbr> <br>
+        this project is non-profit and free for everbody. <br>
+        feel free to play around with the <a href="https://github.com/Ahmed-Elbald/Final-Project" target="_blank">source code</a> or use it for any
+        non-profit projects.
+      </p>
+    </div>
+  </div>
+</section>
+{%endblock%}
