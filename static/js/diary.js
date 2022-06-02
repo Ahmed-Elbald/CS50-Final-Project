@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     open_btns[i].addEventListener('click', function() {
       var diary = open_btns[i].previousElementSibling;
       diary.style.overflow = 'auto';
-      diary.style.whiteSpace = 'inherit';
+      diary.style.whiteSpace = 'break-spaces';
       var close_open = open_btns[i].nextElementSibling;
       while (close_open.className != 'close-diary') {
         close_open = close_open.nextElementSibling;

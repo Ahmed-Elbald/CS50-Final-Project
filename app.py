@@ -30,7 +30,7 @@ def index():
 def signup():
     if request.method == "GET":
         if session.get("user_id")  != None:
-            return redirect("/home-page")
+            return redirect("/home")
         return render_template("signup.html")
     else:
         firstname = request.form.get("first-name")
@@ -66,14 +66,21 @@ def signup():
             return redirect("/signup")
 
         if " " in username:
-            flash("usernaem must not contain any spaces")
+            flash("username must not contain any spaces")
             return redirect("/signup")
 
-        users = db.execute(
-            "SELECT * FROM users WHERE username = ? OR email = ?", username, email)
-        if not len(users) == 0:
-            flash("username or email are taken")
+        users_username = db.execute(
+            "SELECT * FROM users WHERE username = ?", username)
+        if not len(users_username) == 0:
+            flash("username is taken")
             return redirect("/signup")
+        
+        users_email = db.execute(
+            "SELECT * FROM users WHERE email = ?", email)
+        if not len(users_email) == 0:
+            flash("this email is already associated with another account")
+            return redirect("/signup")
+        
         users_phone = db.execute(
             "SELECT * FROM users WHERE phone = ?", phone)
         if not len(users_phone) == 0:
@@ -81,8 +88,8 @@ def signup():
             return redirect("/signup")
 
         hashed = generate_password_hash(password)
-        db.execute("INSERT INTO users (firstname,lastname,hash,username,phone,email,time,country,city,gender) VALUES(?,?,?,?,?,?,?,?,?,?)",
-                    firstname, lastname, hashed, username, phone, email, time,country,city,gender)
+        db.execute("INSERT INTO users (firstname,lastname,hash,username,phone,email,time,country,city,gender,state) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+                    firstname, lastname, hashed, username, phone, email, time,country,city,gender,"active")
         row = db.execute(
             "SELECT id FROM users WHERE username = ?", username)
         db.execute("INSERT INTO bios (user_id) VALUES(?)", row[0]["id"])
@@ -92,10 +99,9 @@ def signup():
 
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
-    session.clear()
     if request.method == "GET":
         if session.get("user_id")  != None:
-            return redirect("/home-page")
+            return redirect("/home")
         return render_template("signin.html")
     else:
         user_input = request.form.get("username-email")
@@ -107,13 +113,23 @@ def signin():
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], password):
             flash("username and/or password aren't correct")
             return render_template("signin.html")
+        
+        if rows[0]["state"] == "active":
+            flash("you are already signed in on another device")
+            return render_template("signin.html")
 
         session["user_id"] = rows[0]["id"]
+        db.execute("UPDATE users SET state = ? WHERE id = ?", "active",rows[0]["id"])
         return redirect("/home")
 
 
 @app.route("/logout")
 def logout():
+    if session.get("user_id")  == None:
+            return redirect("/")
+    
+    db.execute("UPDATE users SET state = ? WHERE id = ?", "not active",session["user_id"])
+    
     session.clear()
 
     return redirect("/")

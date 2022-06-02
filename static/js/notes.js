@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     open_btns[i].addEventListener('click', function() {
       var note = open_btns[i].previousElementSibling;
       note.style.overflow = 'auto';
-      note.style.whiteSpace = 'inherit';
+      note.style.whiteSpace = 'break-spaces';
       var close_open = open_btns[i].nextElementSibling;
       while (close_open.className != 'close-note') {
         close_open = close_open.nextElementSibling;
